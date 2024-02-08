@@ -8,154 +8,164 @@
   <link rel="shortcut icon" href="https://img.icons8.com/3d-fluency/94/telegram.png" type="image/x-icon" />
 </head>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  body {
-    background: #1d1e21;
-    font-family: "Roboto", sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-  }
+/* Body styling */
+body {
+  background: #1d1e21;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
 
+/* Styling for the offer form */
+.offer-form {
+  position: fixed;
+  top: -100%; /* Initially hidden above the viewport */
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.15);
+  width: calc(100% - 20px);
+  max-width: 950px;
+  background: #F9F6F0;
+  display: grid;
+  gap: 30px;
+  box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.05);
+  z-index: 2;
+  opacity: 0;
+  transition: top 0ms ease-in-out 300ms, transform 300ms ease-in-out 0ms,
+    opacity 300ms ease-in-out 0ms; /* Transition for smooth animation */
+}
+
+/* Active state of the offer form */
+.offer-form.active {
+  top: 50%; /* Bring it to the center of the viewport */
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1; /* Make it fully visible */
+  transition: top 0ms ease-in-out 0ms, transform 300ms ease-in-out 0ms,
+    opacity 300ms ease-in-out 0ms; /* Transition for smooth animation */
+}
+
+/* Close button styling */
+.offer-form .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px;
+  font-size: 18px;
+  color: #000000;
+  border: none;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Left section styling */
+.offer-form .left {
+  display: flex;
+  align-items: center;
+}
+
+/* Right section styling */
+.offer-form .right {
+  padding: 25px 30px 30px 10px;
+}
+
+.offer-form .right h2 {
+  font-size: 28px;
+  font-family: "ui-rounded";
+  font-weight: 500;
+  color: black;
+  margin-bottom: 6px;
+}
+
+.offer-form .right h4 {
+  font-size: 16px;
+  color: #111;
+  font-weight: 300;
+}
+
+.offer-form .right p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.offer-form .right .form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.offer-form .right .form .input {
+  margin-bottom: 10px;
+}
+
+.offer-form .right .form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #aaa;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+.offer-form .right .form button {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #273E3E;
+  color: #fff;
+  box-shadow: 0px 2px 2px #ddd;
+}
+
+/* Media query for larger screens */
+@media (min-width: 680px) {
   .offer-form {
-    position: fixed;
-    top: -100%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.15);
-    width: calc(100% - 20px);
-    max-width: 950px;
-    background: #F9F6F0;
-    display: grid;
-    gap: 30px;
-    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.05);
-    z-index: 2;
-    opacity: 0;
-    transition: top 0ms ease-in-out 300ms, transform 300ms ease-in-out 0ms,
-      opacity 300ms ease-in-out 0ms;
+    grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  .offer-form.active {
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-    transition: top 0ms ease-in-out 0ms, transform 300ms ease-in-out 0ms,
-      opacity 300ms ease-in-out 0ms;
-  }
+/* Center alignment styling */
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  .offer-form .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 3px;
-    font-size: 18px;
-    color: #000000;
-    border: none;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-  }
+/* Left section styling */
+.left {
+  display: flex;
+  flex-direction: column;
+}
 
+/* Sale text styling */
+.sale {
+  font-size: 16px;
+  margin-top: 10px;
+}
 
-  .offer-form .left {
-    display: flex;
-    align-items: center;
-  }
+/* Initial content styling */
+.initialContent {
+  color: #1daefc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .right {
-    padding: 25px 30px 30px 10px;
-  }
-
-  .offer-form .right h2 {
-    font-size: 28px;
-    font-family: "ui-rounded";
-    font-weight: 500;
-    color: black;
-    margin-bottom: 6px;
-  }
-
-  .offer-form .right h4 {
-    font-size: 16px;
-    color: #111;
-    font-weight: 300;
-  }
-
-  .offer-form .right p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 15px;
-  }
-
-  .offer-form .right .form label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  .offer-form .right .form .input {
-    margin-bottom: 10px;
-  }
-
-  .offer-form .right .form input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #aaa;
-    font-size: 15px;
-    border-radius: 5px;
-  }
-
-  .offer-form .right .form button {
-    width: 100%;
-    padding: 10px;
-    font-size: 15px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background: #273E3E;
-    color: #fff;
-    box-shadow: 0px 2px 2px #ddd;
-  }
-
-  @media (min-width: 680px) {
-    .offer-form {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .center {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .left {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sale {
-    font-size: 16px;
-    margin-top: 10px;
-  }
-
-  .initialContent {
-    color: #1daefc;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
 </style>
-
 <body>
   <div class="initialContent">
     <img style="width: 80%"
@@ -191,78 +201,78 @@
 </body>
 
 <script>
+// Function to close the popup
+function closepopup() {
+  document.querySelector(".offer-form").classList.remove("active");
+}
 
-  function closepopup() {
-    document.querySelector(".offer-form").classList.remove("active");
-  }
+// Event listener to close the popup when the close button is clicked
+document.querySelector(".close-btn").addEventListener("click", closepopup);
 
+// Function to submit the form
+function submitForm() {
+  // Get the email input value
+  const email = document.getElementById("email").value;
+  // Extract first name from the email
+  const firstName = email.split("@")[0];
 
-  document.querySelector(".close-btn").addEventListener("click", closepopup);
-
-  function submitForm() {
-
-    const email = document.getElementById("email").value;
-    const firstName = email.split("@")[0]
-
-    var formData = {
-      fields: [
-        {
-          name: "firstname",
-          value: firstName,
-        },
-        {
-          name: "email",
-          value: email,
-        },
-        {
-          name: "phone",
-          value: 123456789,
-        },
-      ],
-    };
-
-
-    closepopup();
-
-
-    fetch(
-      "https://api.hsforms.com/submissions/v3/integration/submit/45193904/11e9648d-9645-4dfc-bd19-43c5476791d4",
+  // Create form data object
+  var formData = {
+    fields: [
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer pat-na1-5f8b8e42-2c5a-4c1e-b05f-d29c1159458c"
-          ,
-        },
-        body: JSON.stringify(formData),
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
+        name: "firstname",
+        value: firstName,
+      },
+      {
+        name: "email",
+        value: email,
+      },
+      {
+        name: "phone",
+        value: 123456789,
+      },
+    ],
+  };
 
-        console.log("successful:", data);
+  // Close the popup
+  closepopup();
 
-        document.getElementById("email").value = "";
+  // Submit form data using fetch API
+  fetch(
+    "https://api.hsforms.com/submissions/v3/integration/submit/45193904/11e9648d-9645-4dfc-bd19-43c5476791d4",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer pat-na1-5f8b8e42-2c5a-4c1e-b05f-d29c1159458c",
+      },
+      body: JSON.stringify(formData),
+    }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      // Log successful submission
+      console.log("successful:", data);
+      // Clear the email input field
+      document.getElementById("email").value = "";
+    })
+    .catch((error) => {
+      // Log errors
+      console.error("Error submitting form:", error);
+    });
+}
 
-      })
-      .catch((error) => {
+// Event listener to submit the form when the button is clicked
+document.querySelector(".offer-form .form button").addEventListener("click", submitForm);
 
-        console.error("Error submitting form:", error);
-      });
-  }
-
-
-  document
-    .querySelector(".offer-form .form button")
-    .addEventListener("click", submitForm);
-
-  function showPopup() {
-    document.querySelector(".offer-form").classList.add("active");
-  }
-  setTimeout(showPopup, 3000);
+// Function to show the popup after a delay
+function showPopup() {
+  document.querySelector(".offer-form").classList.add("active");
+}
+// Set timeout to show the popup after 3 seconds
+setTimeout(showPopup, 3000);
 </script>
 
 </html>
