@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinchforth - Popup</title>
+  <link rel="shortcut icon" href="https://img.icons8.com/3d-fluency/94/telegram.png" type="image/x-icon" />
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #1d1e21;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .offer-form {
+    position: fixed;
+    top: -100%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.15);
+    width: calc(100% - 20px);
+    max-width: 950px;
+    background: #F9F6F0;
+    display: grid;
+    gap: 30px;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+    opacity: 0;
+    transition: top 0ms ease-in-out 300ms, transform 300ms ease-in-out 0ms,
+      opacity 300ms ease-in-out 0ms;
+  }
+
+  .offer-form.active {
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: top 0ms ease-in-out 0ms, transform 300ms ease-in-out 0ms,
+      opacity 300ms ease-in-out 0ms;
+  }
+
+  .offer-form .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 3px;
+    font-size: 18px;
+    color: #000000;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+
+  .offer-form .left {
+    display: flex;
+    align-items: center;
+  }
+
+  .right {
+    padding: 25px 30px 30px 10px;
+  }
+
+  .offer-form .right h2 {
+    font-size: 28px;
+    font-family: "ui-rounded";
+    font-weight: 500;
+    color: black;
+    margin-bottom: 6px;
+  }
+
+  .offer-form .right h4 {
+    font-size: 16px;
+    color: #111;
+    font-weight: 300;
+  }
+
+  .offer-form .right p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+  }
+
+  .offer-form .right .form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .offer-form .right .form .input {
+    margin-bottom: 10px;
+  }
+
+  .offer-form .right .form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaa;
+    font-size: 15px;
+    border-radius: 5px;
+  }
+
+  .offer-form .right .form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: #273E3E;
+    color: #fff;
+    box-shadow: 0px 2px 2px #ddd;
+  }
+
+  @media (min-width: 680px) {
+    .offer-form {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sale {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .initialContent {
+    color: #1daefc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<body>
+  <div class="initialContent">
+    <img style="width: 80%"
+      src="https://assets-global.website-files.com/5eb54930d3681d4a6a574cd3/600747b4a8a09282495c8708_Logo.png" />
+    <h1> Javascript POP - UP</h1>
+  </div>
+
+  <div class="offer-form">
+    <div class="left">
+      <img src="./images/offerImg.webp" alt="" width="100%" />
+    </div>
+
+    <div class="right">
+      <h2>The Black Friday Sale is here</h2>
+      <h4>Subscribe and get our best price of the year</h3>
+        <br />
+        <br />
+
+        <div class="form">
+          <div class="input">
+            <label for="email">EMAIL *</label>
+            <input required type="email" id="email" placeholder="Enter your email" />
+          </div>
+
+          <div class="button">
+            <button>Get an EXTRA 20& off</button>
+          </div>
+        </div>
+    </div>
+
+    <button class="close-btn">&times;</button>
+  </div>
+</body>
+
+<script>
+
+  function closepopup() {
+    document.querySelector(".offer-form").classList.remove("active");
+  }
+
+
+  document.querySelector(".close-btn").addEventListener("click", closepopup);
+
+  function submitForm() {
+
+    const email = document.getElementById("email").value;
+    const firstName = email.split("@")[0]
+
+    var formData = {
+      fields: [
+        {
+          name: "firstname",
+          value: firstName,
+        },
+        {
+          name: "email",
+          value: email,
+        },
+        {
+          name: "phone",
+          value: 123456789,
+        },
+      ],
+    };
+
+
+    closepopup();
+
+
+    fetch(
+      "https://api.hsforms.com/submissions/v3/integration/submit/45138549/33c2eaae-9a73-4458-adae-d626fc1efb92",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer pat-na1-15076826-254b-4afc-89d1-8aa5b7c55d93"
+          ,
+        },
+        body: JSON.stringify(formData),
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+
+        console.log("successful:", data);
+
+        document.getElementById("email").value = "";
+
+      })
+      .catch((error) => {
+
+        console.error("Error submitting form:", error);
+      });
+  }
+
+
+  document
+    .querySelector(".offer-form .form button")
+    .addEventListener("click", submitForm);
+
+  function showPopup() {
+    document.querySelector(".offer-form").classList.add("active");
+  }
+  setTimeout(showPopup, 3000);
+</script>
+
+</html>
